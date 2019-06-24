@@ -1,2 +1,2 @@
 # IndicadorDePressaoArterial
-Aplicação para mensurar de acordo com o valor da pressão arterial, em qual estágio ela se encontra: Pressão Normal, Limítrofe ou Alta.
+Aplicação para avaliar o valor da pressão arterial informada pelo indivíduo, classificando-o em um dos três quadros: Pressão Normal, Limítrofe ou Alta.

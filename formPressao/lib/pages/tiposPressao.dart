@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+import 'sobre.dart';
+
 class TiposPressaoTabBar extends StatefulWidget {
   TiposPressaoTabBar({Key key, this.title}) : super(key: key);
   final String title;
@@ -11,13 +14,46 @@ class TiposPressaoTabBar extends StatefulWidget {
 class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.green,
-        title: new Text('Atenção à sua Pressão'),
+        title: Text('Atenção à sua Pressão'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text('Página Inicial'),
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
+              },
+            ),
+            ListTile(
+              title: Text('Tipos de Pressão'),
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
+              },
+            ),
+            Divider(
+              height: 0.5,
+            ),
+            ListTile(
+              title: Text('Sobre nós'),
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SobrePage()));
+              },
+            )
+          ],
+        ),
       ),
       body:Column(
         children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 10)
+          ),
           Hero(
             tag: 'pressaoBaixa',
             child: GestureDetector(
@@ -25,7 +61,10 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
               child: FlutterLogo(size: 100)
             )
           ),
-          Text('Pressão Baixa'),
+          Text('Pressão Baixa',style: TextStyle(fontSize: 22)),
+          Padding(
+            padding: EdgeInsets.only(top: 50)
+          ),
           Hero(
             tag: 'pressaoNormal',
             child: GestureDetector(
@@ -33,7 +72,10 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
               child: FlutterLogo(size: 100)
             )
           ),
-          Text('Pressão Normal'),
+          Text('Pressão Normal',style: TextStyle(fontSize: 22)),
+          Padding(
+            padding: EdgeInsets.only(top: 50),
+          ),
           Hero(
             tag: 'pressaoAlta',
             child: GestureDetector(
@@ -41,7 +83,7 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
               child: FlutterLogo(size: 100)
             )
           ),
-          Text('Pressão Alta')
+          Text('Pressão Alta',style: TextStyle(fontSize: 22))
         ],
       )
     );

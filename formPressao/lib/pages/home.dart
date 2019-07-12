@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:top1_nota2/pages/sobre.dart';
-import 'package:top1_nota2/pages/tabBar.dart';
+
+import 'sobre.dart';
+import 'tiposPressao.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,12 +32,12 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text('data'),
-              accountEmail: null,
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: NetworkImage(url),
-              ),
+            ListTile(
+              title: Text('Página Inicial'),
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
+              },
             ),
             ListTile(
               title: Text('Tipos de Pressão'),
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             Divider(
-              height: 0.7,
+              height: 0.5,
             ),
             ListTile(
               title: Text('Sobre nós'),

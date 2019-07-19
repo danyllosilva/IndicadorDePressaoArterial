@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
           );
         }
       ).toList(),
-      height: MediaQuery.of(context).size.height-150,
+      height: MediaQuery.of(context).size.height-230,
     );
 
     return Scaffold(
@@ -67,7 +67,19 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
               },
             ),
+            Divider(
+              height: 0.7,
+            ),
             ListTile(
+              title: Text('Indicador de Pressão'),
+              onTap: (){
+                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
+              },
+            ),
+            Divider(
+              height: 0.7,
+            ),ListTile(
               title: Text('Tipos de Pressão'),
               onTap: (){
                 Navigator.of(context).pop();
@@ -75,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             Divider(
-              height: 0.5,
+              height: 0.7,
             ),
             ListTile(
               title: Text('Sobre nós'),
@@ -91,7 +103,15 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            instancia 
+            instancia,
+            SizedBox(height: 40),
+            RaisedButton(
+              onPressed: () {},
+              child: Text(
+                'Indicador de Pressão',
+                style: TextStyle(fontSize: 20)
+              ),
+            )
           ],
         )
       ),
@@ -100,11 +120,12 @@ class _HomePageState extends State<HomePage> {
 }
 
 info1(){
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-        Text('Informações do App',)
-    ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+          Text('Campanha Eu Sou 12 por 8'),
+          Image.asset('images/sou12por8.jpg')
+        ],
   );
 }
 

@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
             width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.symmetric(horizontal: 5),
             decoration: BoxDecoration(
-              color: Colors.black12
+              color: Colors.green[200]
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Avaliador de pressão'),
+        title: Text('Avaliador de Pressão'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               height: 0.7,
             ),
             ListTile(
-              title: Text('Sobre nós'),
+              title: Text('Sobre Nós'),
               onTap: (){
                 Navigator.of(context).pop();
                 Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SobrePage()));
@@ -120,29 +120,49 @@ class _HomePageState extends State<HomePage> {
 }
 
 info1(){
-    return Column(
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-          Text('Campanha Eu Sou 12 por 8'),
-          Image.asset('images/sou12por8.jpg')
+        children: <Widget>[
+          Text('A campanha “Eu Sou 12 por 8” foi desenvolvida pelo Departamento de Hipertensão Arterial da Sociedade Brasileira de Cardiologia para ajudar os brasileiros a viverem mais e com muito mais saúde.',
+            textAlign: TextAlign.justify,
+            style: TextStyle(fontSize: 16)
+          ),
+          Image.asset('assets/images/good-health.jpg')
         ],
+    ),
   );
 }
 
 info2(){
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-        Text('Informações do App - 2')
-    ],
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text('Tenha Alimentação Saudável. Receitas simples, como saladas e pratos leves, não aumentam o colesterol e são fáceis de ser preparadas em casa.',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 16)
+        ),
+        Image.asset('assets/images/alimentos-saudaveis.jpg')
+      ],
+    ),
   );
 }
 
 info3(){
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-        Text('Informações do App - 3')
-    ],
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text('Pratique exercícios físicos com orientação médica. Corridas com caminhadas, fazer hidroginástica ou utilizar esteira e bibicleta ergométricas auxiliam na melhora do condicionamento físico.',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 16)
+        ),
+        Image.asset('assets/images/vida-saudavel.jpg')
+      ],
+    ),
   );
 }

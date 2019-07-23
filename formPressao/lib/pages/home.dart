@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'sobre.dart';
 import 'tiposPressao.dart';
+import 'formIndicador.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -106,7 +107,10 @@ class _HomePageState extends State<HomePage> {
             instancia,
             SizedBox(height: 40),
             RaisedButton(
-              onPressed: () {},
+              onPressed: () {
+                //Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Indicador()));
+              },
               child: Text(
                 'Indicador de Pressão',
                 style: TextStyle(fontSize: 20)

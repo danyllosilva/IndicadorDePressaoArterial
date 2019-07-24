@@ -7,7 +7,8 @@ import 'package:flutter/rendering.dart';
 import 'resultado.dart';
 
 //Global Variables
-int _radioValue = 1, _dropdownValue = 120, _pressSis = 120, _pressDias = 80;
+int _radioValue = 0, _pressSis = 120, _pressDias = 80;
+String _nome, _sexo, _tipoPessoa = "Idoso";
 
 class Indicador extends StatefulWidget{
   
@@ -26,19 +27,14 @@ class _IndicadorState extends State<Indicador> {
   
       switch (_radioValue) {
         case 0:
-          _pressDias = 60;
+          _sexo = "Masculino";
           break;
         case 1:
-          _pressDias = 80;
+          _sexo = "Feminino";
           break;
         case 2:
-          _pressDias = 120;
+          _sexo = "Outro";
           break;
-        case 3:
-          _pressDias = 140;
-          break;
-        case 4:
-          _pressDias = null;
       }
     });
   }
@@ -50,7 +46,7 @@ class _IndicadorState extends State<Indicador> {
      key: _keyScaffold,
      appBar: AppBar(
        backgroundColor: Colors.green,
-       title: Text("Avaliador de Pressão")
+       title: Text("Avaliador de Pressão Arterial")
      ),
      
      body: forms(),
@@ -67,25 +63,25 @@ class _IndicadorState extends State<Indicador> {
          mainAxisAlignment: MainAxisAlignment.start,
          children: <Widget>[
           Text("\n \tObs.: Se a sua pressão for 120/80, então 120 é a pressão sistólica e 80 é a pressão diastólica."),
-          Text("\nSelecione uma das opções de pressão sistólica: "),
-          DropdownButton<int>(
-          value: _dropdownValue,
-          onChanged: (int newValue) {
+          Text("\nSelecione abaixo o tipo de pessoa: "),
+          DropdownButton<String>(
+          value: _tipoPessoa,
+          onChanged: (String newValue) {
           setState(() {
-            _dropdownValue = newValue;
+            _tipoPessoa = newValue;
         
           });
         },
-        items: <int>[60, 80, 90, 120, 140]
-          .map<DropdownMenuItem<int>>((int value)
-            => DropdownMenuItem<int>(
+        items: <String>["Criança", "Adulto", "Idoso"]
+          .map<DropdownMenuItem<String>>((String value)
+            => DropdownMenuItem<String>(
               value: value,
-              child: Text(value.toString()), 
+              child: Text(value), 
             ),
           ).toList(),
 
           ),
-          Text('Selecione uma das opções de pressão diastólica: '),
+          Text('Selecione o sexo: '),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +96,7 @@ class _IndicadorState extends State<Indicador> {
               },
               activeColor: Colors.green
             ),
-            Text("60"),
+            Text("Masculino"),
 
             Radio(
             value: 1,
@@ -112,7 +108,7 @@ class _IndicadorState extends State<Indicador> {
              },
              activeColor: Colors.green,
           ),
-          Text("80"),
+          Text("Feminino"),
 
             Radio(
               value: 2,
@@ -125,44 +121,49 @@ class _IndicadorState extends State<Indicador> {
               },
               activeColor: Colors.green
               ),
-          Text("120"),
+          Text("Outro"),
+            ]
 
-            Radio(
-            value: 3,
-            groupValue: _radioValue,
-            onChanged: (int value){
-              setState(() {
-                _handleRadioValueChange(value);
-        
-              });
-            },
-            activeColor: Colors.green
-            ),
-            Text("140"),
-            ],
-         
           ),
-
-          Text("\nNenhum desses acima? Então nos informe abaixo: "),
-
+          Text("\nPor favor, nos informe abaixo: "),
           TextFormField(
-              //maxLength: 3,
-              
-              textInputAction: TextInputAction.go,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "Seu nome: ",
+                hintText: "Por ex.: Fulano da Silva."
+              ),
+              validator: (value){
+                String _retorno;
+                
+                if(value.isEmpty){
+                  _retorno = "O campo de Nome não pode ficar em branco.";
+                }
+                return _retorno;
+              },
+              onSaved: (value){
+                _nome = value;
+              },
+          ),
+          TextFormField(
+              maxLength: 3,
               initialValue: _pressSis.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "\t Informe aqui sua pressão arterial sistólica: ",
+                labelText: "\t Sua pressão arterial sistólica: ",
                 hintText: "P/ pressão arterial = 120/80: 120 é a pressão sistólica.", 
               ),
               validator: (value){
-              if(value.isEmpty && _pressSis == null){
+              String _retorno;
+
+              if(value.isEmpty){
                 final snackbar = SnackBar(content: Text("O campo de pressão sistólica não pode ficar em branco."),);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-                return 'Campo de pressão sistólica está em branco.';
+                _retorno = 'Campo de pressão sistólica está em branco.';
               }
+                return _retorno;
             },
             onSaved: (value){
               _pressSis = int.parse(value);
@@ -171,24 +172,26 @@ class _IndicadorState extends State<Indicador> {
             ),
             
             TextFormField(
-              
-              //maxLength: 3,
-              textInputAction: TextInputAction.go,
+              maxLength: 2,
               initialValue: _pressDias.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: '\t Informe aqui a sua pressão arterial diastólica: ',
+                labelText: '\t Sua pressão arterial diastólica: ',
                 hintText: 'P/ pressão arterial = 120/80: 80 é a pressão diastólica.'
               ),
 
             validator: (value){
-              if(value.isEmpty && _pressDias == null){
+              String _retorno;
+
+              if(value.isEmpty){
                 final snackbar = SnackBar(content: Text("O campo de pressão arterial diastólica não pode ficar em branco."),);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-              return "Campo de pressão arterial diastólica está em branco.";
+              _retorno = "Campo de pressão arterial diastólica está em branco.";
               }
+
+              return _retorno;
             },
             
             onSaved: (value){
@@ -202,19 +205,13 @@ class _IndicadorState extends State<Indicador> {
                // Navigator.of(context).pop();
                 
                 if(_keyForm.currentState.validate()) {
+                    _keyForm.currentState.save();
                   
-                  if(_dropdownValue == 120 && _pressDias == 80){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Resultado(_dropdownValue, _pressDias)));
-                  }else {
-                    try{
-                      _keyForm.currentState.save();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Resultado(_pressSis, _pressDias)));
-                    } catch(FormatException){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Resultado(_dropdownValue, _pressDias)));
-                    }
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => Resultado(_nome, _sexo, _tipoPessoa, _pressSis, _pressDias)));
+                  
                 }
               }
-            }
             )  
             ],
          ),

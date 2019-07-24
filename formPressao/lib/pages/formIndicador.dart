@@ -46,7 +46,7 @@ class _IndicadorState extends State<Indicador> {
      key: _keyScaffold,
      appBar: AppBar(
        backgroundColor: Colors.green,
-       title: Text("Avaliador de Pressão Arterial")
+       title: Text("Indicador de Pressão Arterial")
      ),
      
      body: forms(),

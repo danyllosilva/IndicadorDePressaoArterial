@@ -8,7 +8,8 @@ import 'resultado.dart';
 
 //Global Variables
 int _radioValue = 0, _pressSis = 120, _pressDias = 80;
-String _nome, _sexo, _tipoPessoa = "Idoso";
+bool _checkValueSaudavel = true, _checkValueNaoSaudavel = false;
+String _nome, _sexo, _tipoPessoa = "Idoso", _perfilMedico = "Saudável";
 
 class Indicador extends StatefulWidget{
   
@@ -39,6 +40,40 @@ class _IndicadorState extends State<Indicador> {
     });
   }
 
+  void _handleCheckValueChange(int flag, bool value) {
+     setState(() {
+      _checkValueSaudavel = value;
+      _checkValueNaoSaudavel = value;
+
+    if(flag == 0){
+      switch (_checkValueSaudavel) {
+        case true:
+          _checkValueNaoSaudavel = false;
+          _perfilMedico = "Saudável";
+          break;
+        case false:
+          _checkValueNaoSaudavel = true;
+          _perfilMedico = "Possui estresse, hipertensão, diabetes ou outra enfermidade.";
+          break;
+      }
+    }else if(flag == 1){
+      switch(_checkValueNaoSaudavel){
+        case true:
+          _checkValueSaudavel = false;
+          _perfilMedico = "Possui estresse, hipertensão, diabetes ou outra enfermidade.";
+          break;
+        case false:
+          _checkValueSaudavel = true;
+          _perfilMedico = "Saudável";
+          break;
+        default:
+          _checkValueSaudavel = false;
+          _checkValueNaoSaudavel = false;
+      }
+    }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -62,14 +97,18 @@ class _IndicadorState extends State<Indicador> {
        child: Column(
          mainAxisAlignment: MainAxisAlignment.start,
          children: <Widget>[
-          Text("\n \tObs.: Se a sua pressão for 120/80, então 120 é a pressão sistólica e 80 é a pressão diastólica."),
-          Text("\nSelecione abaixo o tipo de pessoa: "),
+          Text(
+            "Obs.:",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+          Text("\t Se a sua pressão for 120/80, então 120 é a pressão" 
+          +"\n\tsistólica e 80 é a pressão diastólica.",
+          style: TextStyle(fontStyle: FontStyle.italic)),
+          Text("\n\tSelecione abaixo o tipo de pessoa: "),
           DropdownButton<String>(
           value: _tipoPessoa,
           onChanged: (String newValue) {
           setState(() {
             _tipoPessoa = newValue;
-        
           });
         },
         items: <String>["Criança", "Adulto", "Idoso"]
@@ -125,6 +164,36 @@ class _IndicadorState extends State<Indicador> {
             ]
 
           ),
+          
+          Text(
+            "\n\tVocẽ possui algum quadro de estresse,"+
+            "hipertensão, diabetes, ou outra enfermidade?"
+            ,textAlign: TextAlign.center,
+           
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+          Checkbox(
+            value: _checkValueSaudavel,
+            onChanged: (bool value){
+              setState((){
+                _handleCheckValueChange(0, value);
+              });
+            },
+          ),
+          Text("Não, sou saudável."),
+          Checkbox(
+            value: _checkValueNaoSaudavel,
+            onChanged: (bool value){
+              setState((){
+                _handleCheckValueChange(1, value);
+              });
+            },
+          ),
+          Text("Sim, possuo."),
+          ],),
+          
           Text("\nPor favor, nos informe abaixo: "),
           TextFormField(
               textAlign: TextAlign.center,
@@ -198,7 +267,6 @@ class _IndicadorState extends State<Indicador> {
               _pressDias = int.parse(value);
             }
             ),
-            Text("\n"),
             RaisedButton(
               child: Text('CALCULAR RESULTADO'),
               onPressed: (){
@@ -208,7 +276,7 @@ class _IndicadorState extends State<Indicador> {
                     _keyForm.currentState.save();
                   
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Resultado(_nome, _sexo, _tipoPessoa, _pressSis, _pressDias)));
+                      builder: (context) => Resultado(_nome, _sexo, _tipoPessoa, _perfilMedico, _pressSis, _pressDias)));
                   
                 }
               }

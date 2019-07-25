@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
-import 'sobre.dart';
+import 'drawerMenu.dart';
 
 class TiposPressaoTabBar extends StatefulWidget {
   TiposPressaoTabBar({Key key, this.title}) : super(key: key);
@@ -12,6 +11,9 @@ class TiposPressaoTabBar extends StatefulWidget {
 }
 
 class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
+
+  DrawerMenu drawer = new DrawerMenu();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,71 +21,55 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
         backgroundColor: Colors.green,
         title: Text('Atenção à sua Pressão'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Página Inicial'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
-              },
-            ),
-            ListTile(
-              title: Text('Tipos de Pressão'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
-              },
-            ),
-            Divider(
-              height: 0.5,
-            ),
-            ListTile(
-              title: Text('Sobre nós'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SobrePage()));
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: drawer,
       body:Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 10)
+            padding: const EdgeInsets.only(top: 50, left: 8.0),
+            child: Row(
+              children: <Widget>[
+                Hero(
+                  tag: 'pressaoBaixa',
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoBaixaHero())),
+                    child: Image.asset('assets/images/pressaoBaixa.jpg', height: 100)
+                  )
+                ),Text('Pressão Baixa',style: TextStyle(fontSize: 22))
+              ],
+            ),
           ),
-          Hero(
-            tag: 'pressaoBaixa',
-            child: GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoBaixaHero())),
-              child: FlutterLogo(size: 100)
-            )
-          ),
-          Text('Pressão Baixa',style: TextStyle(fontSize: 22)),
+          
           Padding(
-            padding: EdgeInsets.only(top: 50)
+            padding: const EdgeInsets.only(top: 70, left: 70),
+            child: Row(
+              children: <Widget>[
+                Text('Pressão Normal',style: TextStyle(fontSize: 22)),
+                Hero(
+                  tag: 'pressaoNormal',
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoNormalHero())),
+                    child: Image.asset('assets/images/pressaoNormal250.jpg', height: 100)
+                  )
+                ),
+              ],
+            ),
           ),
-          Hero(
-            tag: 'pressaoNormal',
-            child: GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoNormalHero())),
-              child: FlutterLogo(size: 100)
-            )
-          ),
-          Text('Pressão Normal',style: TextStyle(fontSize: 22)),
+
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top:70, left: 8.0),
+            child: Row(
+              children: <Widget>[
+                Hero(
+                  tag: 'pressaoAlta',
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoAltaHero())),
+                    child: Image.asset('assets/images/pressaoAlta250.jpg', height: 100)
+                  )
+                ),Text('Pressão Alta',style: TextStyle(fontSize: 22))
+              ],
+            ),
           ),
-          Hero(
-            tag: 'pressaoAlta',
-            child: GestureDetector(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PressaoAltaHero())),
-              child: FlutterLogo(size: 100)
-            )
-          ),
-          Text('Pressão Alta',style: TextStyle(fontSize: 22))
+          
         ],
       )
     );
@@ -103,9 +89,15 @@ class PressaoBaixaHero extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: 'pressaoBaixa',
-              child: FlutterLogo(size: 200.0)
+              child: Image.asset('assets/images/pressaoBaixa250.jpg')
             ),
-            Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.'),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
+                    style: TextStyle(fontSize: 22),
+                    textAlign: TextAlign.justify
+              ),
+            ),
             Icon(Icons.arrow_downward,color: Colors.blue,size: 100),
           ],
         ),
@@ -127,9 +119,15 @@ class PressaoNormalHero extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: 'pressaoNormal',
-              child: FlutterLogo(size: 200.0)
+              child: Image.asset('assets/images/pressaoNormal250.jpg')
             ),
-            Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.'),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
+                          style: TextStyle(fontSize: 22),
+                          textAlign: TextAlign.justify
+                    ),
+            ),
             Icon(Icons.check_box,color: Colors.greenAccent,size: 100),
           ],
         ),
@@ -151,9 +149,15 @@ class PressaoAltaHero extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: 'pressaoAlta',
-              child: FlutterLogo(size: 200.0)
+              child: Image.asset('assets/images/pressaoAlta250.jpg')
             ),
-            Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.'),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
+                          style: TextStyle(fontSize: 22),
+                          textAlign: TextAlign.justify
+                    )
+            ),
             Icon(Icons.arrow_upward,color: Colors.red,size: 100,)
           ],
         ),

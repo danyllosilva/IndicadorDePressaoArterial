@@ -1,9 +1,8 @@
-
-import 'dart:collection';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 import 'resultado.dart';
 
 //Global Variables
@@ -84,8 +83,7 @@ class _IndicadorState extends State<Indicador> {
        title: Text("Indicador de Pressão Arterial")
      ),
      
-     body: forms(),
-        
+     body: SingleChildScrollView(child: forms()),
     );  
   }
 
@@ -181,6 +179,7 @@ class _IndicadorState extends State<Indicador> {
                 _handleCheckValueChange(0, value);
               });
             },
+            activeColor: Colors.green,
           ),
           Text("Não, sou saudável."),
           Checkbox(
@@ -190,6 +189,7 @@ class _IndicadorState extends State<Indicador> {
                 _handleCheckValueChange(1, value);
               });
             },
+            activeColor: Colors.green,
           ),
           Text("Sim, possuo."),
           ],),
@@ -200,7 +200,7 @@ class _IndicadorState extends State<Indicador> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: "Seu nome: ",
-                hintText: "Por ex.: Fulano da Silva."
+                hintText: "Por ex.: Fulano da Silva.",
               ),
               validator: (value){
                 String _retorno;
@@ -267,8 +267,9 @@ class _IndicadorState extends State<Indicador> {
               _pressDias = int.parse(value);
             }
             ),
-            RaisedButton(
-              child: Text('CALCULAR RESULTADO'),
+            RaisedButton.icon(
+              label: Text('CALCULAR RESULTADO'),
+              icon: Icon(MdiIcons.calculator),
               onPressed: (){
                // Navigator.of(context).pop();
                 

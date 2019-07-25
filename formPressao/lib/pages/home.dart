@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'sobre.dart';
-import 'tiposPressao.dart';
+import 'drawerMenu.dart';
 import 'formIndicador.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,9 +27,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    DrawerMenu drawer = new DrawerMenu();
+
     instancia = CarouselSlider(
       autoPlay: true,
-      autoPlayAnimationDuration: Duration(seconds: 3),
+      autoPlayAnimationDuration: Duration(seconds: 1),
       items: listaTela.map(
         (it){
           return Container(
@@ -56,64 +55,24 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Avaliador de Pressão'),
+        title: Text('Avaliador de Pressão Arterial'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text('Página Inicial'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>HomePage()));
-              },
-            ),
-            Divider(
-              height: 0.7,
-            ),
-            ListTile(
-              title: Text('Indicador de Pressão'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
-              },
-            ),
-            Divider(
-              height: 0.7,
-            ),ListTile(
-              title: Text('Tipos de Pressão'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
-              },
-            ),
-            Divider(
-              height: 0.7,
-            ),
-            ListTile(
-              title: Text('Sobre Nós'),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>SobrePage()));
-              },
-            )
-          ],
-        ),
-      ),
+      drawer: drawer,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             instancia,
-            SizedBox(height: 40),
-            RaisedButton(
-              onPressed: () {
-                //Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Indicador()));
-              },
-              child: Text(
-                'Indicador de Pressão',
-                style: TextStyle(fontSize: 20)
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: RaisedButton.icon(
+                icon: Icon(MdiIcons.stethoscope),
+                textColor: Colors.white,
+                color: Colors.lightGreen,
+                label: Text('Indicador de Pressão'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Indicador()));
+                },
               ),
             )
           ],

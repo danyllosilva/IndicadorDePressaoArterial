@@ -25,6 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   carousel_slider: ^1.3.0
   carousel_pro: ^1.0.0
+  material_design_icons_flutter: ^2.7.94
+  link: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +50,12 @@ flutter:
    - assets/images/good-health.jpg
    - assets/images/sou12por8.jpg
    - assets/images/vida-saudavel.jpg
+   - assets/images/pressaoBaixa.jpg
+   - assets/images/pressaoBaixa250.jpg
+   - assets/images/pressaoNormal250.jpg
+   - assets/images/pressaoAlta250.jpg
+   - assets/images/danyllo.jpg
+   - assets/images/luan.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

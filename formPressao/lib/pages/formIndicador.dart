@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'resultado.dart';
@@ -196,6 +197,7 @@ class _IndicadorState extends State<Indicador> {
           
           Text("\nPor favor, nos informe abaixo: "),
           TextFormField(
+              inputFormatters: [WhitelistingTextInputFormatter(RegExp("[a-zA-Z]"))],
               textAlign: TextAlign.center,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -216,6 +218,7 @@ class _IndicadorState extends State<Indicador> {
           ),
           TextFormField(
               maxLength: 3,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               initialValue: _pressSis.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
@@ -242,6 +245,7 @@ class _IndicadorState extends State<Indicador> {
             
             TextFormField(
               maxLength: 2,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               initialValue: _pressDias.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
@@ -270,6 +274,8 @@ class _IndicadorState extends State<Indicador> {
             RaisedButton.icon(
               label: Text('CALCULAR RESULTADO'),
               icon: Icon(MdiIcons.calculator),
+              color: Colors.green,
+              textColor: Colors.white,
               onPressed: (){
                // Navigator.of(context).pop();
                 

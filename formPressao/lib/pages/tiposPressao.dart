@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'drawerMenu.dart';
+//import 'drawerMenu.dart';
 
 class TiposPressaoTabBar extends StatefulWidget {
   TiposPressaoTabBar({Key key, this.title}) : super(key: key);
@@ -12,7 +12,7 @@ class TiposPressaoTabBar extends StatefulWidget {
 
 class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
 
-  DrawerMenu drawer = new DrawerMenu();
+  //DrawerMenu drawer = new DrawerMenu();
   
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
         backgroundColor: Colors.green,
         title: Text('Atenção à sua Pressão'),
       ),
-      drawer: drawer,
+      //drawer: drawer,
       body:Column(
         children: <Widget>[
           Padding(

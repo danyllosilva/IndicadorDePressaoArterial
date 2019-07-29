@@ -43,7 +43,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               title: Text('Tipos de Pressão'),
               onTap: (){
                 Navigator.of(context).pop();
-                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressaoTabBar()));
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>TiposPressao()));
               },
             ),
             Divider(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-//import 'drawerMenu.dart';
+import 'drawerMenu.dart';
 import 'formIndicador.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    //DrawerMenu drawer = new DrawerMenu();
+    DrawerMenu drawer = new DrawerMenu();
 
     instancia = CarouselSlider(
       autoPlay: true,
@@ -55,9 +55,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Avaliador de Pressão Arterial'),
+        title: Text('IndPress - Indicador de PA')
       ),
-      //drawer: drawer,
+      drawer: drawer,
       body:Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               child: instancia,
             ),
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: RaisedButton.icon(
                 icon: Icon(MdiIcons.stethoscope),
                 color: Colors.green,

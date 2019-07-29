@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'formIndicador.dart';
-import 'home.dart';
-import 'sobre.dart';
 import 'tiposPressao.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -14,10 +11,9 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar>{
 int _pagina = 0;
   final _opcoes = [
-    HomePage(),
-    Indicador(),
-    TiposPressaoTabBar(),
-    SobrePage()
+    PressaoNormal(),
+    PressaoLimitrofe(),
+    PressaoAlta()
   ];
 
   @override
@@ -33,24 +29,23 @@ int _pagina = 0;
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(MdiIcons.homeOutline),
-            title: Text('Página Inicial')
+            icon: Icon(MdiIcons.arrowExpandHorizontal,color: Colors.green),
+            title: Text('Pressão Normal',
+                        style: TextStyle(color: Colors.green)),
           ),
           BottomNavigationBarItem(
-            icon: Icon(MdiIcons.stethoscope),
-            title: Text('Ind. Pressão'),
+            icon: Icon(MdiIcons.signCaution,color: Colors.orange),
+            title: Text('Pressão Limítrofe',
+                        style: TextStyle(color: Colors.orange))
           ),
           BottomNavigationBarItem(
-            icon: Icon(MdiIcons.more),
-            title: Text('Tipos de Pressão')
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.pencilBoxOutline),
-            title: Text('Sobre Nós')
-          ),
+            icon: Icon(MdiIcons.arrowUpBold,color: Colors.red),
+            title: Text('Pressão Alta',
+                        style: TextStyle(color: Colors.red))
+          )
         ],
-        fixedColor: Colors.green,
-        unselectedItemColor: Colors.black,type: BottomNavigationBarType.shifting,
+        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.shifting,
       ),
     );
   }

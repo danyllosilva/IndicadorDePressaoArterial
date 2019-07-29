@@ -1,8 +1,122 @@
+import 'package:exemplo01/pages/bottomNavBar.dart';
 import 'package:flutter/material.dart';
 
-//import 'drawerMenu.dart';
+import 'drawerMenu.dart';
 
-class TiposPressaoTabBar extends StatefulWidget {
+class TiposPressao extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BottomNavBar(),
+    );
+  }
+}
+
+class PressaoNormal extends StatelessWidget {
+
+  final DrawerMenu drawer = new DrawerMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text('Pressão Normal'),
+      ),
+      drawer: drawer,
+      body: SingleChildScrollView(
+        child: Center(
+          child:Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset('assets/images/img_niveis_pressao-normal.jpg'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text('A pressão é considerada normal, quando, na média, máxima em 120 e mínima em 80 milímetros de mercúrio, ou simplesmente 12 por 8.'
+                            'Valores inferiores a 14 por 9 podem ser considerados normais a critério médico',
+                            style: TextStyle(fontSize: 22),
+                            textAlign: TextAlign.justify
+                      ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PressaoLimitrofe extends StatelessWidget {
+
+  final DrawerMenu drawer = new DrawerMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text('Pressão Limítrofe'),
+      ),
+      drawer: drawer,
+      body: SingleChildScrollView(
+        child: Center(
+          child:Column(
+            children: <Widget>[
+              Image.asset('assets/images/img_niveis_pressao-limitrofe.jpg'),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text('Quem possui pressão arterial limítrofe (acima de 12 por 8 e inferior a 14 por 9) deve fazer controle médico periódico e'
+                            'seguir as orientações dadas por aquele profissional para prevenir e controlar a hipertensão.',
+                      style: TextStyle(fontSize: 22),
+                      textAlign: TextAlign.justify
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PressaoAlta extends StatelessWidget {
+
+  final DrawerMenu drawer = new DrawerMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text('Pressão Alta'),
+      ),
+      drawer: drawer,
+      body: SingleChildScrollView(
+        child: Center(
+          child:Column(
+            children: <Widget>[
+              Image.asset('assets/images/img_niveis_pressao-alta.jpg'),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text('Hipertensão arterial acontece quando a nossa pressão está acima do limite considerado normal.'
+                            'As pessoas que têm familiares hipertensos, que não têm hábitos alimentares saudáveis, ingerem muito sal,'
+                            'estão acima do peso, exageram no consumo de álcool ou são diabéticas têm mais risco de desenvolver a hipertensão.',
+                            style: TextStyle(fontSize: 22),
+                            textAlign: TextAlign.justify
+                      )
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/* class TiposPressaoTabBar extends StatefulWidget {
   TiposPressaoTabBar({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -12,7 +126,7 @@ class TiposPressaoTabBar extends StatefulWidget {
 
 class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
 
-  //DrawerMenu drawer = new DrawerMenu();
+  DrawerMenu drawer = new DrawerMenu();
   
   @override
   Widget build(BuildContext context) {
@@ -21,7 +135,7 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
         backgroundColor: Colors.green,
         title: Text('Atenção à sua Pressão'),
       ),
-      //drawer: drawer,
+      drawer: drawer,
       body:Column(
         children: <Widget>[
           Padding(
@@ -74,94 +188,4 @@ class _TiposPressaoTabBarState extends State<TiposPressaoTabBar> {
       )
     );
   }
-}
-
-class PressaoBaixaHero extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Pressão Baixa'),
-      ),
-      body: Center(
-        child:Column(
-          children: <Widget>[
-            Hero(
-              tag: 'pressaoBaixa',
-              child: Image.asset('assets/images/pressaoBaixa250.jpg')
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
-                    style: TextStyle(fontSize: 22),
-                    textAlign: TextAlign.justify
-              ),
-            ),
-            Icon(Icons.arrow_downward,color: Colors.blue,size: 100),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PressaoNormalHero extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Pressão Normal'),
-      ),
-      body: Center(
-        child:Column(
-          children: <Widget>[
-            Hero(
-              tag: 'pressaoNormal',
-              child: Image.asset('assets/images/pressaoNormal250.jpg')
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
-                          style: TextStyle(fontSize: 22),
-                          textAlign: TextAlign.justify
-                    ),
-            ),
-            Icon(Icons.check_box,color: Colors.greenAccent,size: 100),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class PressaoAltaHero extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Pressão Alta'),
-      ),
-      body: Center(
-        child:Column(
-          children: <Widget>[
-            Hero(
-              tag: 'pressaoAlta',
-              child: Image.asset('assets/images/pressaoAlta250.jpg')
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Text('A pré-hipertensão consiste numa pressão sanguínea que está entre 120-139/80-89.',
-                          style: TextStyle(fontSize: 22),
-                          textAlign: TextAlign.justify
-                    )
-            ),
-            Icon(Icons.arrow_upward,color: Colors.red,size: 100,)
-          ],
-        ),
-      ),
-    );
-  }
-}
+} */

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:link/link.dart';
 
-//import 'drawerMenu.dart';
+import 'drawerMenu.dart';
 
 class SobrePage extends StatelessWidget {
   
-  //DrawerMenu drawer = new DrawerMenu();
+  DrawerMenu drawer = new DrawerMenu();
 
   @override
   Widget build(BuildContext context) {
@@ -15,38 +15,37 @@ class SobrePage extends StatelessWidget {
         backgroundColor: Colors.green,
         title: Text('Sobre Nós'),
       ),
-      //drawer: drawer,
+      drawer: drawer,
       body: Center(
         child: Column(
         //mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(6),
-            child: Text('A campanha “Eu Sou 12 por 8” foi desenvolvida pelo Departamento de Hipertensão Arterial da Sociedade Brasileira de Cardiologia' 
-                  'para ajudar os brasileiros a viverem mais e com muito mais saúde.' 
-                  'Vista essa camisa e entre para nossa seleção: meça sua pressão arterial, faça exercícios físicos, controle o peso,' 
+            padding: const EdgeInsets.all(10),
+            child: Text('Vista essa camisa e entre para nossa seleção: meça sua pressão arterial, faça exercícios físicos, controle o peso,' 
                   'a alimentação, visite seu médico periodicamente e ajude a divulgar essa campanha.',
                   textAlign: TextAlign.justify,
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(fontSize: 16),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(10),
             child: Text('Conheça os criadores do app',style: TextStyle(fontSize: 18)),
           ),
           Padding(
-            padding: const EdgeInsets.all(7),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: <Widget>[
                 Hero(
                   tag: 'danyllo',
                   child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DanylloHero())),
+                    onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DanylloHero())),
                     child: Image.asset('assets/images/danyllo.jpg', height: 150)
                   )
                 ),Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text('Danyllo Carlos',style: TextStyle(fontSize: 22)),
+                  padding: const EdgeInsets.all(10),
+                  child: Text('Danyllo Silva',style: TextStyle(fontSize: 22)),
                 )
               ],
             ),
@@ -54,7 +53,7 @@ class SobrePage extends StatelessWidget {
           
           
           Padding(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(7),
             child: Row(
               children: <Widget>[
                 Hero(
@@ -81,7 +80,7 @@ class DanylloHero extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Danyllo Carlos'),
+        title: Text('Danyllo Silva'),
       ),
       body: Center(
         child: Column(mainAxisSize: MainAxisSize.min,

@@ -50,10 +50,9 @@ flutter:
    - assets/images/good-health.jpg
    - assets/images/sou12por8.jpg
    - assets/images/vida-saudavel.jpg
-   - assets/images/pressaoBaixa.jpg
-   - assets/images/pressaoBaixa250.jpg
-   - assets/images/pressaoNormal250.jpg
-   - assets/images/pressaoAlta250.jpg
+   - assets/images/img_niveis_pressao-limitrofe.jpg
+   - assets/images/img_niveis_pressao-normal.jpg
+   - assets/images/img_niveis_pressao-alta.jpg
    - assets/images/danyllo.jpg
    - assets/images/luan.jpg
 

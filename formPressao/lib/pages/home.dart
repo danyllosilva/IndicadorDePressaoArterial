@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
               child: instancia,
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(10),
               child: RaisedButton.icon(
                 icon: Icon(MdiIcons.stethoscope),
                 color: Colors.green,

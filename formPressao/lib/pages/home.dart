@@ -4,7 +4,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import 'package:indpress/features/drawerMenu.dart';
 import 'formIndicador.dart';
-import 'package:indpress/pages/tiposPressao.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -15,11 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _pagina = 0;
-  final _opcoes = [
-    PressaoNormal(),
-    PressaoLimitrofe(),
-    PressaoAlta()
-  ];
 
   List<Widget> listaTela = new List();
   CarouselSlider instancia;

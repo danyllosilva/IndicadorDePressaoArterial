@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'package:indpress/features/bottomNavBar.dart';
 import 'package:indpress/features/drawerMenu.dart';
 import 'formIndicador.dart';
 import 'package:indpress/pages/tiposPressao.dart';
@@ -90,7 +89,6 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ),
-      // _opcoes[_pagina]
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pagina,

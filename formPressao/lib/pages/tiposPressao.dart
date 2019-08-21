@@ -1,7 +1,7 @@
-import 'package:exemplo01/pages/bottomNavBar.dart';
+import 'package:indpress/features/bottomNavBar.dart';
 import 'package:flutter/material.dart';
 
-import 'drawerMenu.dart';
+import 'package:indpress/features/drawerMenu.dart';
 
 class TiposPressao extends StatelessWidget {
   // This widget is the root of your application.

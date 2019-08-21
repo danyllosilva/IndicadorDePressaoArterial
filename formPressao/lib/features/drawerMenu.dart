@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'formIndicador.dart';
-import 'home.dart';
-import 'sobre.dart';
-import 'tiposPressao.dart';
+import 'package:indpress/pages/home.dart';
+import 'package:indpress/pages/sobre.dart';
+import 'package:indpress/pages/tiposPressao.dart';
+import 'package:indpress/pages/formIndicador.dart';
 
 class DrawerMenu extends StatefulWidget {
   @override

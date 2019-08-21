@@ -2,15 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'drawerMenu.dart';
+import 'package:indpress/features/bottomNavBar.dart';
+import 'package:indpress/features/drawerMenu.dart';
 import 'formIndicador.dart';
+import 'package:indpress/pages/tiposPressao.dart';
 
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
+
 }
 
 class _HomePageState extends State<HomePage> {
+  int _pagina = 0;
+  final _opcoes = [
+    PressaoNormal(),
+    PressaoLimitrofe(),
+    PressaoAlta()
+  ];
 
   List<Widget> listaTela = new List();
   CarouselSlider instancia;
@@ -26,7 +36,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     DrawerMenu drawer = new DrawerMenu();
 
     instancia = CarouselSlider(
@@ -55,10 +64,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('IndPress - Indicador de PA')
+        title: Text('Software IndPress')
       ),
       drawer: drawer,
-      body:Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -81,6 +90,35 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ),
+      // _opcoes[_pagina]
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _pagina,
+        onTap: (int index){
+          setState((){
+            _pagina = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(MdiIcons.home,color: Colors.purple),
+            title: Text('Inicio',
+                        style: TextStyle(color: Colors.purple)),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MdiIcons.humanHandsup,color: Colors.blue),
+            title: Text('Cadastrar Paciente',
+                        style: TextStyle(color: Colors.blue))
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MdiIcons.arrowDownThick,color: Colors.green),
+            title: Text('Indicador de Pressão',
+                        style: TextStyle(color: Colors.green))
+          )
+        ],
+        unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.shifting,
+      ),
     );
   }
 }
@@ -92,8 +130,8 @@ info1(){
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text('A campanha “Eu Sou 12 por 8” foi desenvolvida pelo Departamento de Hipertensão Arterial da' 
-                'Sociedade Brasileira de Cardiologia para ajudar os brasileiros a viverem mais e com muito' 
-                'mais saúde.',
+                ' Sociedade Brasileira de Cardiologia para ajudar os brasileiros a viverem mais e com muito' 
+                ' mais saúde.',
             textAlign: TextAlign.justify,
             style: TextStyle(fontSize: 16)
           ),
@@ -110,7 +148,7 @@ info2(){
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text('Tenha Alimentação Saudável. Receitas simples, como saladas e pratos leves, não aumentam o' 
-              'colesterol e são fáceis de ser preparadas em casa.',
+              ' colesterol e são fáceis de serem preparadas em casa.',
           textAlign: TextAlign.justify,
           style: TextStyle(fontSize: 16)
         ),
@@ -130,8 +168,8 @@ info3(){
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text('Pratique exercícios físicos com orientação médica. Corridas com caminhadas, fazer' 
-            'hidroginástica ou utilizar esteira e bibicleta ergométricas auxiliam na melhora do' 
-            'condicionamento físico.',
+            ' hidroginástica ou utilizar esteira e bibicleta ergométricas auxiliam na melhora do' 
+            ' condicionamento físico.',
           textAlign: TextAlign.justify,
           style: TextStyle(fontSize: 16)
         ),

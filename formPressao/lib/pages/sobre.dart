@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:link/link.dart';
 
-import 'drawerMenu.dart';
+import 'package:indpress/features/drawerMenu.dart';
 
 class SobrePage extends StatelessWidget {
   

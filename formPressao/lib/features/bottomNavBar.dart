@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'tiposPressao.dart';
+import 'package:indpress/pages/tiposPressao.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override

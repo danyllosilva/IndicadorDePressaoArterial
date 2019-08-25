@@ -4,10 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'resultado.dart';
-
 //Global Variables
-int _radioValue = 0, _pressSis = 120, _pressDias = 80;
 bool _checkValueSaudavel = true, _checkValueNaoSaudavel = false;
 String _nome, _sexo = "Masculino", _tipoPessoa = "Idoso", _perfilMedico = "Saudável";
 
@@ -219,7 +216,6 @@ class _IndicadorState extends State<Indicador> {
           TextFormField(
               maxLength: 3,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              initialValue: _pressSis.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(

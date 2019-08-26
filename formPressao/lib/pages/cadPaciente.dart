@@ -3,18 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:indpress/features/maskedText.dart';
+import 'package:indpress/features/cpfValidator.dart';
 
 //Global Variables
+int _radioValue = 0, _idade;
 bool _checkValueSaudavel = true, _checkValueNaoSaudavel = false;
-String _nome, _sexo = "Masculino", _tipoPessoa = "Idoso", _perfilMedico = "Saudável";
+String _cpf, _nome, _sexo = "Feminino", 
+_perfilMedico = "Saudável", _dataNascimento, _endereco, _telefone;
+var controllerCPF = new MaskedTextController(mask: '000.000.000-00');
+var controllerData = new MaskedTextController(mask: '00/00/0000');
+var controllerTel = new MaskedTextController(mask: '(00) 9 0000-0000');
 
-class Indicador extends StatefulWidget{
+class CadastrarPaciente extends StatefulWidget{
   
   @override
-  _IndicadorState createState() => _IndicadorState();
+  _CadastrarPacienteState createState() => _CadastrarPacienteState();
 }
 
-class _IndicadorState extends State<Indicador> {
+class _CadastrarPacienteState extends State<CadastrarPaciente> {
   //Chave global
   final _keyForm = GlobalKey<FormState>(); 
   final _keyScaffold = GlobalKey<ScaffoldState>();
@@ -29,9 +36,6 @@ class _IndicadorState extends State<Indicador> {
           break;
         case 1:
           _sexo = "Feminino";
-          break;
-        case 2:
-          _sexo = "Outro";
           break;
       }
     });
@@ -50,14 +54,14 @@ class _IndicadorState extends State<Indicador> {
           break;
         case false:
           _checkValueNaoSaudavel = true;
-          _perfilMedico = "Possui estresse, hipertensão, diabetes ou outra enfermidade.";
+          _perfilMedico = "Possui estresse, hipertensão ou diabetes.";
           break;
       }
     }else if(flag == 1){
       switch(_checkValueNaoSaudavel){
         case true:
           _checkValueSaudavel = false;
-          _perfilMedico = "Possui estresse, hipertensão, diabetes ou outra enfermidade.";
+          _perfilMedico = "Possui estresse, hipertensão ou diabetes.";
           break;
         case false:
           _checkValueSaudavel = true;
@@ -78,7 +82,7 @@ class _IndicadorState extends State<Indicador> {
      key: _keyScaffold,
      appBar: AppBar(
        backgroundColor: Colors.green,
-       title: Text("Indicador de Pressão Arterial")
+       title: Text("Cadastrar paciente")
      ),
      
      body: SingleChildScrollView(child: forms()),
@@ -93,30 +97,7 @@ class _IndicadorState extends State<Indicador> {
        child: Column(
          mainAxisAlignment: MainAxisAlignment.start,
          children: <Widget>[
-          Text(
-            "Obs.:",
-            style: TextStyle(fontWeight: FontWeight.bold)),
-          Text("\t Se a sua pressão for 120/80, então 120 é a pressão" 
-          +"\n\tsistólica e 80 é a pressão diastólica.",
-          style: TextStyle(fontStyle: FontStyle.italic)),
-          Text("\n\tSelecione abaixo o tipo de pessoa: "),
-          DropdownButton<String>(
-          value: _tipoPessoa,
-          onChanged: (String newValue) {
-          setState(() {
-            _tipoPessoa = newValue;
-          });
-        },
-        items: <String>["Criança", "Adulto", "Idoso"]
-          .map<DropdownMenuItem<String>>((String value)
-            => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value), 
-            ),
-          ).toList(),
-
-          ),
-          Text('Selecione o sexo: '),
+          Text('\nInforme abaixo o seu sexo: '),
           
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -145,25 +126,13 @@ class _IndicadorState extends State<Indicador> {
           ),
           Text("Feminino"),
 
-            Radio(
-              value: 2,
-              groupValue: _radioValue,
-              onChanged: (int value){
-                setState(() {
-                  _handleRadioValueChange(value);
-        
-                });
-              },
-              activeColor: Colors.green
-              ),
-          Text("Outro"),
             ]
 
           ),
           
           Text(
-            "\n\tVocẽ possui algum quadro de estresse,"+
-            "hipertensão, diabetes, ou outra enfermidade?"
+            "\n\t Possui histórico de estresse, "+
+            "hipertensão ou diabetes?"
             ,textAlign: TextAlign.center,
            
           ),
@@ -191,50 +160,56 @@ class _IndicadorState extends State<Indicador> {
           ),
           Text("Sim, possuo."),
           ],),
-          
-          Text("\nPor favor, nos informe abaixo: "),
           TextFormField(
-              inputFormatters: [WhitelistingTextInputFormatter(RegExp("[a-zA-Z]"))],
+              controller: controllerCPF,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "Seu nome: ",
-                hintText: "Por ex.: Fulano da Silva.",
+                labelText: "\t CPF: ",
+                hintText: "Por favor, respeite o formato: 000.000.000-00.",
               ),
               validator: (value){
                 String _retorno;
-                
+
                 if(value.isEmpty){
-                  _retorno = "O campo de Nome não pode ficar em branco.";
+                  final snackbar = SnackBar(content: Text("\t O campo CPF não pode ficar em branco."),);
+                _retorno = "\t Este campo não pode ficar em branco.";
+                _keyScaffold.currentState.showSnackBar(snackbar);
+                }
+
+                if(!CPFValidator.isValid(value)){
+                  final snackbar = SnackBar(content: Text("\t O CPF digitado é inválido."),);
+                _retorno = "\t Por favor, digite um CPF válido e tente novamente.";
+                _keyScaffold.currentState.showSnackBar(snackbar);
                 }
                 return _retorno;
               },
               onSaved: (value){
-                _nome = value;
+                _cpf = value;
               },
           ),
           TextFormField(
-              maxLength: 3,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              maxLength: 100,
+              inputFormatters: [WhitelistingTextInputFormatter(RegExp("[a-zA-Z]"))],
+              initialValue: _nome,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: "\t Sua pressão arterial sistólica: ",
-                hintText: "P/ pressão arterial = 120/80: 120 é a pressão sistólica.", 
+                labelText: "\t Nome: ",
+                hintText: "Digite aqui o seu nome.", 
               ),
               validator: (value){
               String _retorno;
 
               if(value.isEmpty){
-                final snackbar = SnackBar(content: Text("O campo de pressão sistólica não pode ficar em branco."),);
+                final snackbar = SnackBar(content: Text("\t O campo Nome não pode ficar em branco."),);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-                _retorno = 'Campo de pressão sistólica está em branco.';
+                _retorno = '\t Campo Idade está em branco.';
               }
                 return _retorno;
             },
             onSaved: (value){
-              _pressSis = int.parse(value);
+              _nome = value;
         
             }
             ),
@@ -242,44 +217,144 @@ class _IndicadorState extends State<Indicador> {
             TextFormField(
               maxLength: 2,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              initialValue: _pressDias.toString(),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                labelText: '\t Sua pressão arterial diastólica: ',
-                hintText: 'P/ pressão arterial = 120/80: 80 é a pressão diastólica.'
+                labelText: '\t Idade: ',
+                hintText: 'Digite aqui a sua idade.'
               ),
 
             validator: (value){
               String _retorno;
 
               if(value.isEmpty){
-                final snackbar = SnackBar(content: Text("O campo de pressão arterial diastólica não pode ficar em branco."),);
+                final snackbar = SnackBar(content: Text("\t O campo de idade não pode ficar em branco."),);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-              _retorno = "Campo de pressão arterial diastólica está em branco.";
+              _retorno = "\t Campo Idade está em branco.";
               }
 
               return _retorno;
             },
             
             onSaved: (value){
-              _pressDias = int.parse(value);
+              _idade = int.parse(value);
+            }
+            ),
+            TextFormField(
+              controller: controllerData,
+              maxLength: 10,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: '\t Data de nascimento: ',
+                hintText: 'P. Ex. DD/MM/AAAAA.'
+              ),
+
+            validator: (value){
+              String _retorno;
+
+              if(value.isEmpty){
+                final snackbar = SnackBar(
+                content: 
+                Text('\t O campo Data de Nascimento'+
+                'não pode ficar em branco.')
+                ,);
+                _keyScaffold.currentState.showSnackBar(snackbar);
+
+              _retorno = "\t Campo Data de Nascimento está em branco.";
+              }
+
+              var date = value.split("/");
+              int day = int.parse(date[0]);
+              int month = int.parse(date[1]);
+              int year = int.parse(date[2]);
+              if((day <= 0  || day > 31) || (month <= 00 || month > 12) || (year < 1800 || year > 2019)){
+                 final snackbar = SnackBar(
+                content: 
+                Text('\t A Data de Nascimento informada'+
+                ' é inválida.')
+                ,);
+                _keyScaffold.currentState.showSnackBar(snackbar);
+              _retorno = "\t Por favor, verifique se a data de nascimento está correta.";
+              }
+
+              return _retorno;
+            },
+            
+            onSaved: (value){
+              _dataNascimento = value;
+            }
+            ),
+           
+            TextFormField(
+              maxLength: 8,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: '\t Endereço: ',
+                hintText: 'P. Ex. Rua das Salamandras, 2000, Bairro Vicente de Paula.'
+              ),
+
+            validator: (value){
+              String _retorno;
+
+              if(value.isEmpty){
+                final snackbar = SnackBar(content: Text("\t O campo Endereço não pode ficar em branco."),);
+                _keyScaffold.currentState.showSnackBar(snackbar);
+
+              _retorno = "\t Campo Endereço está em branco.";
+              }
+
+              return _retorno;
+            },
+            
+            onSaved: (value){
+              _endereco = value;
+            }
+            ),
+            TextFormField(
+              controller: controllerTel,
+              maxLength: 8,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: '\t Telefone: ',
+                hintText: 'P. Ex. (DD) 9 8888-8888.'
+              ),
+
+            validator: (value){
+              String _retorno;
+
+              if(value.isEmpty){
+                final snackbar = SnackBar(content: Text("\t O campo Telefone não pode ficar em branco."),);
+                _keyScaffold.currentState.showSnackBar(snackbar);
+
+              _retorno = "\t Campo Telefone está em branco.";
+              }
+
+              return _retorno;
+            },
+            
+            onSaved: (value){
+              _telefone = value;
             }
             ),
             RaisedButton.icon(
-              label: Text('CALCULAR RESULTADO'),
-              icon: Icon(MdiIcons.calculator),
+              label: Text('CADASTRAR PACIENTE'),
+              icon: Icon(MdiIcons.account),
               color: Colors.green,
               textColor: Colors.white,
               onPressed: (){
-               // Navigator.of(context).pop();
                 
                 if(_keyForm.currentState.validate()) {
                     _keyForm.currentState.save();
                   
                     Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => Resultado(_nome, _sexo, _tipoPessoa, _perfilMedico, _pressSis, _pressDias)));
+                      builder: (context) => CadastrarPaciente()));
                   
                 }
               }

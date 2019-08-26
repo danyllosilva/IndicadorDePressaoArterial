@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:indpress/pages/cadPaciente.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:indpress/features/drawerMenu.dart';
@@ -83,12 +84,20 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _pagina,
         onTap: (int index){
           setState((){
             _pagina = index;
+
+            if(_pagina == 0)
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+            
+            if(_pagina == 1)
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CadastrarPaciente()));
+
+            if(_pagina == 2)
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Indicador()));
           });
         },
         items: [

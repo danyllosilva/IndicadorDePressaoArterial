@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:indpress/features/bottomNavBarCad.dart';
-import 'package:indpress/pages/cadPaciente.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import 'package:indpress/features/drawerMenu.dart';

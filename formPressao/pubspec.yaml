@@ -27,6 +27,8 @@ dependencies:
   carousel_pro: ^1.0.0
   material_design_icons_flutter: ^2.7.94
   link: ^1.0.0
+  sqflite: ^1.1.6
+  path_provider: ^1.1.0
 
 dev_dependencies:
   flutter_test:

@@ -6,14 +6,21 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:indpress/features/maskedText.dart';
 import 'package:indpress/features/cpfValidator.dart';
 
+import 'db_paciente.dart';
+import 'paciente.dart';
+
 //Global Variables
 int _radioValue = 0, _idade;
 bool _checkValueSaudavel = true, _checkValueNaoSaudavel = false;
-String _cpf, _nome, _sexo = "Feminino", 
-_perfilMedico = "Saudável", _dataNascimento, _endereco, _telefone;
+String _cpf, _nome, _sexo, 
+_perfilMedico, _dataNascimento, _endereco, _telefone;
+var dbPaciente = DBPaciente();
 var controllerCPF = new MaskedTextController(mask: '000.000.000-00');
 var controllerData = new MaskedTextController(mask: '00/00/0000');
 var controllerTel = new MaskedTextController(mask: '(00) 9 0000-0000');
+TextEditingController controllerNome = TextEditingController();
+TextEditingController controllerIdade = TextEditingController();
+TextEditingController controllerEnd = TextEditingController();
 
 class CadastrarPaciente extends StatefulWidget{
   
@@ -25,6 +32,7 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
   //Chave global
   final _keyForm = GlobalKey<FormState>(); 
   final _keyScaffold = GlobalKey<ScaffoldState>();
+
 
   void _handleRadioValueChange(int value) {
      setState(() {
@@ -186,12 +194,14 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
               },
               onSaved: (value){
                 _cpf = value;
+                value = '';
               },
           ),
           TextFormField(
+            controller: controllerNome,
               maxLength: 100,
-              inputFormatters: [WhitelistingTextInputFormatter(RegExp("[a-zA-Z]"))],
-              initialValue: _nome,
+              inputFormatters: [WhitelistingTextInputFormatter(RegExp("[A-Z a-záéíóúâêôãõ]"))],
+              textCapitalization: TextCapitalization.words,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 labelText: "\t Nome: ",
@@ -210,11 +220,11 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
             },
             onSaved: (value){
               _nome = value;
-        
             }
             ),
             
             TextFormField(
+              controller: controllerIdade,
               maxLength: 2,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               textAlign: TextAlign.center,
@@ -289,10 +299,9 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
             ),
            
             TextFormField(
-              maxLength: 8,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              controller: controllerEnd,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
+              textCapitalization: TextCapitalization.words,
               decoration: InputDecoration(
                 labelText: '\t Endereço: ',
                 hintText: 'P. Ex. Rua das Salamandras, 2000, Bairro Vicente de Paula.'
@@ -314,10 +323,11 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
             onSaved: (value){
               _endereco = value;
             }
+            
             ),
             TextFormField(
               controller: controllerTel,
-              maxLength: 8,
+              maxLength: 16,
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
@@ -341,6 +351,7 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
             
             onSaved: (value){
               _telefone = value;
+              value = '';
             }
             ),
             RaisedButton.icon(
@@ -349,14 +360,16 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
               color: Colors.green,
               textColor: Colors.white,
               onPressed: (){
-                
                 if(_keyForm.currentState.validate()) {
                     _keyForm.currentState.save();
-                  
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => CadastrarPaciente()));
-                  
+                  Paciente p = Paciente(_nome, _perfilMedico, _sexo, _cpf, _idade, _dataNascimento, _endereco, _telefone);
+                  dbPaciente.salvar(p);
+
+                  final snackbar = SnackBar(content: Text("Paciente Cadastrado."),);
+                  _keyScaffold.currentState.showSnackBar(snackbar);
                 }
+
+                resetaCampos();
               }
             )  
             ],
@@ -364,4 +377,13 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
 
      );
   }
+}
+
+void resetaCampos() {
+  controllerCPF.updateText('');
+  controllerData.updateText('');
+  controllerTel.updateText('');
+  controllerNome.text='';
+  controllerIdade.text='';
+  controllerEnd.text='';
 }

@@ -1,3 +1,5 @@
+import 'dart:ui' as prefix0;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:indpress/pages/paciente.dart';
@@ -165,19 +167,21 @@ DBPaciente db = new DBPaciente();
                     ),
                   ),
                   subtitle: Text(
-                    'Perfil médico: ${pacientes[position].perfil} \n' +
-                    'CPF: ${pacientes[position].cpf} \n' +
-                    'Idade: ${pacientes[position].idade} \n' +
-                    'Data de nascimento: ${pacientes[position].dtNascimento} \n' +
-                    'Sexo: ${pacientes[position].sexo} \n' +
-                    'Endereço: ${pacientes[position].endereco} \n'
-                    'Telefone: ${pacientes[position].telefone} \n',
+                    '${pacientes[position].perfil}; \n' +
+                    'Meu CPF é o ${pacientes[position].cpf}; \n' +
+                    'Possuo ${pacientes[position].idade} anos de idade; \n' +
+                    'Nasci em ${pacientes[position].dtNascimento}; \n' +
+                    'Sou do sexo ${pacientes[position].sexo}; \n' +
+                    'Moro em ${pacientes[position].endereco}; \n'
+                    'Meu contato é o ${pacientes[position].telefone}. \n',
                     style: new TextStyle(
                     fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
                     ),
                   ),
-                  onTap: (){
+
+                  onTap: (){ 
                     //detalhes(pacientes[position].id);
                   },
                 )

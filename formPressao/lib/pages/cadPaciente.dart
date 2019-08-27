@@ -13,7 +13,7 @@ import 'paciente.dart';
 int _radioValue = 0, _idade;
 bool _checkValueSaudavel = true, _checkValueNaoSaudavel = false;
 String _cpf, _nome, _sexo = "Masculino", 
-_perfilMedico = "Não, sou saudável", _dataNascimento, _endereco, _telefone;
+_perfilMedico = "Sou saudável", _dataNascimento, _endereco, _telefone;
 var dbPaciente = DBPaciente();
 var controllerCPF = new MaskedTextController(mask: '000.000.000-00');
 var controllerData = new MaskedTextController(mask: '00/00/0000');

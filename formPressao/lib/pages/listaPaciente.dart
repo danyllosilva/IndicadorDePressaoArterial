@@ -160,12 +160,18 @@ DBPaciente db = new DBPaciente();
                   title: Text(
                     '${pacientes[position].nome}',
                     style: TextStyle(
-                      fontSize: 22.0,
-                      color: Colors.deepOrangeAccent,
+                    fontSize: 22.0,
+                    color: Colors.deepOrangeAccent,
                     ),
                   ),
                   subtitle: Text(
-                    '${pacientes[position].perfil}',
+                    'Perfil médico: ${pacientes[position].perfil} \n' +
+                    'CPF: ${pacientes[position].cpf} \n' +
+                    'Idade: ${pacientes[position].idade} \n' +
+                    'Data de nascimento: ${pacientes[position].dtNascimento} \n' +
+                    'Sexo: ${pacientes[position].sexo} \n' +
+                    'Endereço: ${pacientes[position].endereco} \n'
+                    'Telefone: ${pacientes[position].telefone} \n',
                     style: new TextStyle(
                     fontSize: 18.0,
                     fontStyle: FontStyle.italic,

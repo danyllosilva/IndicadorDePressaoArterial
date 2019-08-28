@@ -1,12 +1,14 @@
 import 'dart:async';
-import 'dart:io' as io;
+import 'dart:io';
+import 'dart:convert' as convert;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'paciente.dart';
+import 'package:http/http.dart' as http;
  
 class DBPaciente {
-  static Database _db;
+  static Database _db;  
   static const String TABLE = 'paciente';
   static const String DB_NAME = 'paciente.db';
   static const String ID = 'id';
@@ -29,7 +31,7 @@ class DBPaciente {
   }
  
   initDb() async {
-    io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, DB_NAME);
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
@@ -63,6 +65,22 @@ class DBPaciente {
     });
     */
   }
+
+  //Continuamos a retornar um Future, mas agora ele irá encapsular uma List de Noticia
+Future<List<Paciente>> obtemPacientesdaWeb() async{
+  //Criação da List que será retornada pelo método
+  List<Paciente> listacomobjetospaciente = new List<Paciente>();
+  String url = "http://www.mocky.io/v2/5d65c02634000086abf448c7"; //URL da API 
+  http.Response resposta = await http.get(url);//Chamada o método GET (Recuperação de dados)
+  if (resposta.statusCode == HttpStatus.ok) {//Caso o status da interação seja 200 (HttpStatus.ok)
+    var listapacientes = convert.jsonDecode(resposta.body);//jsondecode decodifica um objeto JSON em um objeto Dart
+   
+    for (var pacientejson in listapacientes) {
+      listacomobjetospaciente.add(listapacientes[pacientejson]);//adicionamos o objeto a lista  
+    }
+  }
+  return Future.value(listacomobjetospaciente);//retornamos a lista
+}
  
   Future<List> getPacientes() async {
     var dbClient = await db;

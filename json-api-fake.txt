@@ -1,0 +1,21 @@
+[{
+    "nome" : "Luan",
+    "perfil" : "Saudavel",
+    "sexo" : "Masculino",
+    "cpf" : "927.341.430-38",
+    "idade" : 26,
+    "dtNascimento" : "20/06/1990",
+    "endereco" : "573 Avenue - Michigan",
+    "telefone" : "(98) 9 8863-3866"
+},
+
+{
+    "nome" : "Mauro Lopes",
+    "perfil" : "Saudavel",
+    "sexo" : "Masculino",
+    "cpf" : "448.355.290-22",
+    "idade" : 30,
+    "dtNascimento" : "10/03/1978",
+    "endereco" : "573 Avenue - New York",
+    "telefone" : "(98) 9 8863-3866"
+}]

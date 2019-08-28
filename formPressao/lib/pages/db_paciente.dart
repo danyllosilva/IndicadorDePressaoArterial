@@ -58,42 +58,34 @@ class DBPaciente {
     var dbClient = await db;
     paciente.id = await dbClient.insert(TABLE, paciente.toMap());
     return paciente;
-    /*
-    await dbClient.transaction((txn) async {
-      var query = "INSERT INTO $TABLE ($NAME) VALUES ('" + employee.name + "')";
-      return await txn.rawInsert(query);
-    });
-    */
   }
 
-  //Continuamos a retornar um Future, mas agora ele irá encapsular uma List de Noticia
-Future<List<Paciente>> obtemPacientesdaWeb() async{
-  //Criação da List que será retornada pelo método
-  List<Paciente> listacomobjetospaciente = new List<Paciente>();
-  String url = "http://www.mocky.io/v2/5d65c02634000086abf448c7"; //URL da API 
-  http.Response resposta = await http.get(url);//Chamada o método GET (Recuperação de dados)
-  if (resposta.statusCode == HttpStatus.ok) {//Caso o status da interação seja 200 (HttpStatus.ok)
-    var listapacientes = convert.jsonDecode(resposta.body);//jsondecode decodifica um objeto JSON em um objeto Dart
-   
+  void obtemPacientesdaWeb() async{
+  String url = "http://www.mocky.io/v2/5d66f53f3300004ca4449fa0"; 
+  http.Response resposta = await http.get(url);
+  if (resposta.statusCode == HttpStatus.ok) {
+    var listapacientes = convert.jsonDecode(resposta.body);
     for (var pacientejson in listapacientes) {
-      listacomobjetospaciente.add(listapacientes[pacientejson]);//adicionamos o objeto a lista  
+     
+      Paciente p = new Paciente(
+        pacientejson.nome,
+        pacientejson.perfil,
+        pacientejson.sexo,
+        pacientejson.cpf,
+        pacientejson.idade,
+        pacientejson.dtNascimento,
+        pacientejson.endereco,
+        pacientejson.telefone
+      );
+
+      salvar(p);
     }
   }
-  return Future.value(listacomobjetospaciente);//retornamos a lista
 }
  
   Future<List> getPacientes() async {
     var dbClient = await db;
-    /* List<Map> maps = await dbClient.query(TABLE, columns: [ID, NOME, PERFIL, SEXO, CPF, IDADE,
-                                                            DTNASCIMENTO, ENDERECO, TELEFONE]); */
     var result = await dbClient.rawQuery("SELECT * FROM $TABLE");
-    /* List<Paciente> pacientes = [];
-    if (maps.length > 0) {
-      for (int i = 0; i < maps.length; i++) {
-        pacientes.add(Paciente.fromMap(maps[i]));
-      }
-    }
-    return pacientes; */
     return result.toList();
   }
  
@@ -116,13 +108,7 @@ Future<List<Paciente>> obtemPacientesdaWeb() async{
   Future getPaciente(int id) async {
     var dbClient = await db;
     var result = await dbClient.rawQuery("SELECT * FROM $TABLE WHERE $ID = $id");
-    /* List<Paciente> pacientes = [];
-    if (maps.length > 0) {
-      for (int i = 0; i < maps.length; i++) {
-        pacientes.add(Paciente.fromMap(maps[i]));
-      }
-    }
-    return pacientes; */
+    
     return result.toList();
   }
 }

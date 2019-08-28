@@ -32,7 +32,7 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
   //Chave global
   final _keyForm = GlobalKey<FormState>(); 
   final _keyScaffold = GlobalKey<ScaffoldState>();
-
+  
 
   void _handleRadioValueChange(int value) {
      setState(() {
@@ -85,7 +85,6 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
      key: _keyScaffold,
      appBar: AppBar(
@@ -98,7 +97,7 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
   }
 
  Form forms(){
-    
+  
   return Form(
 
        key: _keyForm,

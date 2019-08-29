@@ -61,21 +61,23 @@ class DBPaciente {
   }
 
   void obtemPacientesdaWeb() async{
-  String url = "http://www.mocky.io/v2/5d66f53f3300004ca4449fa0"; 
+  String url = "http://www.mocky.io/v2/5d68216a330000d9e3e65c4a"; 
   http.Response resposta = await http.get(url);
   if (resposta.statusCode == HttpStatus.ok) {
-    var listapacientes = convert.jsonDecode(resposta.body);
-    for (var pacientejson in listapacientes) {
-     
+    var listpacientesjson = convert.jsonDecode(resposta.body);
+
+    for (var pacientejson in listpacientesjson) {
+    Paciente paciente = Paciente.fromMap(pacientejson);
+ 
       Paciente p = new Paciente(
-        pacientejson.nome,
-        pacientejson.perfil,
-        pacientejson.sexo,
-        pacientejson.cpf,
-        pacientejson.idade,
-        pacientejson.dtNascimento,
-        pacientejson.endereco,
-        pacientejson.telefone
+        paciente.nome,
+        paciente.perfil,
+        paciente.sexo,
+        paciente.cpf,
+        paciente.idade,
+        paciente.dtNascimento,
+        paciente.endereco,
+        paciente.telefone
       );
 
       salvar(p);

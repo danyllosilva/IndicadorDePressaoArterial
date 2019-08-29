@@ -213,7 +213,7 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
                 final snackbar = SnackBar(content: Text("\t O campo Nome não pode ficar em branco."),);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-                _retorno = '\t Campo Idade está em branco.';
+                _retorno = '\t Campo Nome está em branco.';
               }
                 return _retorno;
             },
@@ -272,24 +272,11 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
                 ,);
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
-              _retorno = "\t Campo Data de Nascimento está em branco.";
+                return _retorno = "\t Campo Data de Nascimento está em branco.";
+              }else{
+                _retorno = validadorDeData(value);
+                return _retorno;
               }
-
-              var date = value.split("/");
-              int day = int.parse(date[0]);
-              int month = int.parse(date[1]);
-              int year = int.parse(date[2]);
-              if((day <= 0  || day > 31) || (month <= 00 || month > 12) || (year < 1800 || year > 2019)){
-                 final snackbar = SnackBar(
-                content: 
-                Text('\t A Data de Nascimento informada'+
-                ' é inválida.')
-                ,);
-                _keyScaffold.currentState.showSnackBar(snackbar);
-              _retorno = "\t Por favor, verifique se a data de nascimento está correta.";
-              }
-
-              return _retorno;
             },
             
             onSaved: (value){
@@ -314,9 +301,11 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
                 _keyScaffold.currentState.showSnackBar(snackbar);
 
               _retorno = "\t Campo Endereço está em branco.";
+            
               }
 
               return _retorno;
+
             },
             
             onSaved: (value){
@@ -376,6 +365,26 @@ class _CadastrarPacienteState extends State<CadastrarPaciente> {
 
      );
   }
+
+String validadorDeData(var value){
+  var date = value.split("/");
+  String str;
+
+  int day = int.parse(date[0]);
+  int month = int.parse(date[1]);
+  int year = int.parse(date[2]);
+  if((day <= 0  || day > 31) || (month <= 00 || month > 12) || (year < 1800 || year > 2019)){
+      final snackbar = SnackBar(
+    content: 
+    Text('\t A Data de Nascimento informada'+
+    ' é inválida.')
+    ,);
+    _keyScaffold.currentState.showSnackBar(snackbar);
+    
+    str = "\t Por favor, verifique se a data de nascimento está correta.";
+    return str;
+  }
+}
 }
 
 void resetaCampos() {

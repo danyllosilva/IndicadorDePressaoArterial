@@ -18,7 +18,6 @@ DBPaciente db = new DBPaciente();
   @override
   void initState() {
     super.initState();
-    print('lista');
 
     db.obtemPacientesdaWeb();
 
